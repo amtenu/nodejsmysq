@@ -59,7 +59,7 @@
                   name="password"
                 />
               </div>
-               <div class="mb-3">
+              <div class="mb-3">
                 <label for="passwordConfirm" class="form-label">Confirm Password</label>
                 <input
                   type="passwordConfirm"
@@ -73,6 +73,10 @@
           </div>
         </div>
       </div>
+
+      {{#if message}}
+        <h4 class="alert-danger mt-4">{{message}}</h4>
+      {{/if}}
     </div>
 
     <script
