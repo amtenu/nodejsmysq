@@ -20,7 +20,11 @@ const publicDirectory = path.join(__dirname,'./public');//current directory
 app.use(express.static(publicDirectory))
 app.set('view engine','hbs'); //view engine for html
 
+//grab the date from html pages
+app.use(express.urlencoded({extended:false}));
 
+//parse JSON bodies as sent by API clients
+app.use(express.json());
 
 db.connect((error)=>{
 if(error){
@@ -32,6 +36,7 @@ if(error){
 
 
 app.use('/',require('./routes/pages'));
+app.use('/auth',require('./routes/auth'));
 
 
 // app.get("/", (req, res) => {
