@@ -27,10 +27,9 @@ const db = mysql.createConnection({
       return res.render("register", {
         message: "email already registered",
       });
-    } else if(password != passwordConfirm){
-        return res.render("register", {
-            message: "Passwords do not Match !",
-          });
+    } else if (password !== passwordConfirm) {
+      return res.render("register", {
+        message: "Passwords do not Match !",
+      });
     }
-
   };
