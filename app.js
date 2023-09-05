@@ -1,4 +1,5 @@
 const express = require("express");
+const path=require('path');
 
 const mysql=require("mysql");
 
@@ -13,7 +14,13 @@ const db=mysql.createConnection({
     user:process.env.DATABASE_USER,
     password:process.env.DATABASE_PASSWORD,
     database:process.env.DATABASE
-})
+});
+const publicDirectory = path.join(__dirname,'./public');//current directory
+
+app.use(express.static(publicDirectory))
+app.set('view engine','hbs'); //view engine for html
+
+
 
 db.connect((error)=>{
 if(error){
@@ -24,7 +31,8 @@ if(error){
 })
 
 app.get("/", (req, res) => {
-  res.send("<h1>Home Page</h1>");
+  //res.send("<h1>Home Page</h1>");
+  res.render('index');
 });
 
 app.listen(5001, () => {
