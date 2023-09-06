@@ -3,7 +3,9 @@ const path=require('path');
 
 const mysql=require("mysql");
 
-const dotenv=require("dotenv")
+const dotenv=require("dotenv");
+
+const cookieParser=require('cookie-parser');
 dotenv.config({
 path:'./configs.env'
 })
@@ -23,8 +25,14 @@ app.set('view engine','hbs'); //view engine for html
 //grab the date from html pages
 app.use(express.urlencoded({extended:false}));
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json()); // parse JSON request body
+app.use(bodyParser.urlencoded({ extended: true })); // parse URL-encoded request body
+
+
 //parse JSON bodies as sent by API clients
 app.use(express.json());
+app.use(cookieParser())
 
 db.connect((error)=>{
 if(error){
