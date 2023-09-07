@@ -1,6 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
+const authController = require("../controllers/auth");
 
 router.get("/", (req, res) => {
   res.render("index");
@@ -14,8 +15,18 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-router.get("/profile", (req, res) => {
-  res.render("profile");
+//middleware to protect profile page
+
+router.get("/profile", authController.isLoggedIn, (req, res) => {
+  //console.log(req.message);  message is logged in and we can create many functions
+ 
+  if (req.user) {
+    res.render("profile");
+  } else {
+    res.redirect("/login");
+  }
+
+
 });
 
 module.exports = router;

@@ -2,6 +2,8 @@ const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+const { promisify } = require("util");
+
 const db = mysql.createConnection({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
@@ -102,4 +104,42 @@ exports.loginRegister = (req, res) => {
       );
     }
   );
+};
+
+exports.isLoggedIn = async (req, res, next) => {
+  console.log(req.cookies);
+
+  if (req.cookies.jwt) {
+    try {
+      //checking the token exists which  user is from
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
+      console.log(decoded);
+      // checking if the user exists in the db
+
+      db.query(
+        "SELECT * FROM users WHERE id=?",
+        [decoded.id],
+        (error, result) => {
+          console.log(result);
+
+          if (!result) {
+            return next();
+          }
+
+          req.user = result[0];
+          return next();
+        }
+      );
+
+      //
+    } catch (error) {
+      console.log(error);
+      return next();
+    }
+  }  else { next();};
+
+ 
 };
