@@ -143,3 +143,12 @@ exports.isLoggedIn = async (req, res, next) => {
 
  
 };
+
+
+exports.logout=async(req,res)=>{
+  //override the current cookie http only for security
+  res.cookie('jwt','logout',{
+    expires:new Date (Date.now()+ 2*1000),httpOnly:true
+  })
+  res.status(200).redirect('/')
+}
