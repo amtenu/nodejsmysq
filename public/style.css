@@ -13,19 +13,27 @@ nav ul {
 }
 
 nav li {
-    list-style: none;
+  list-style: none;
 }
 
 nav li a {
-    color:azure;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px 8px;
-
+  color: azure;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 8px;
 }
 
-nav li a:hover{
- color:yellow;
- text-decoration: none;
+nav li a:hover {
+  color: yellow;
+  text-decoration: none;
 }
- 
+
+.avatar-ctn {
+  background-color: orange;
+  text-align: center;
+}
+
+.avatar {
+  width: 65%;
+  border-bottom: 1px solid rgba(0,0,0,0.125);
+}
