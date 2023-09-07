@@ -21,7 +21,7 @@ router.get("/profile", authController.isLoggedIn, (req, res) => {
   //console.log(req.message);  message is logged in and we can create many functions
  
   if (req.user) {
-    res.render("profile");
+    res.render("profile",{user:req.user});
   } else {
     res.redirect("/login");
   }
